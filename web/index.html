@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#080D17" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>ChartPulse — Trading Analysis, Planner &amp; Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="header-title-row">
+        <h1 class="app-title">ChartPulse</h1>
+      </div>
+      <nav class="top-nav-switcher" aria-label="Primary Navigation">
+        <button type="button" class="top-nav-btn active" data-tab="analysis" aria-pressed="true">
+          <span class="nav-icon" aria-hidden="true">📊</span>
+          <span>Analysis</span>
+        </button>
+        <button type="button" class="top-nav-btn" data-tab="planner" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">🧮</span>
+          <span>Planner</span>
+        </button>
+        <button type="button" class="top-nav-btn" data-tab="journal" aria-pressed="false">
+          <span class="nav-icon" aria-hidden="true">📒</span>
+          <span>Journal</span>
+        </button>
+      </nav>
+    </header>
+
+    <div class="app-body">
+      <aside class="nav-rail" aria-label="Sidebar Navigation">
+        <button type="button" class="rail-btn active" data-tab="analysis">
+          <span class="nav-icon" aria-hidden="true">📊</span>
+          <span>Analysis</span>
+        </button>
+        <button type="button" class="rail-btn" data-tab="planner">
+          <span class="nav-icon" aria-hidden="true">🧮</span>
+          <span>Planner</span>
+        </button>
+        <button type="button" class="rail-btn" data-tab="journal">
+          <span class="nav-icon" aria-hidden="true">📒</span>
+          <span>Journal</span>
+        </button>
+      </aside>
+
+      <main class="main-content">
+        <!-- ANALYSIS TAB -->
+        <section id="tab-analysis" class="tab-panel active" aria-label="Analysis">
+          <div id="analysis-root" class="stack-lg"></div>
+        </section>
+
+        <!-- PLANNER TAB -->
+        <section id="tab-planner" class="tab-panel" aria-label="Planner" hidden>
+          <div id="planner-root" class="stack-md"></div>
+        </section>
+
+        <!-- JOURNAL TAB -->
+        <section id="tab-journal" class="tab-panel" aria-label="Journal" hidden>
+          <div id="journal-root" class="stack-md"></div>
+        </section>
+      </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Bottom Navigation">
+      <button type="button" class="bottom-nav-btn active" data-tab="analysis">
+        <span class="nav-icon" aria-hidden="true">📊</span>
+        <span>Analysis</span>
+      </button>
+      <button type="button" class="bottom-nav-btn" data-tab="planner">
+        <span class="nav-icon" aria-hidden="true">🧮</span>
+        <span>Planner</span>
+      </button>
+      <button type="button" class="bottom-nav-btn" data-tab="journal">
+        <span class="nav-icon" aria-hidden="true">📒</span>
+        <span>Journal</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Hidden file input for chart screenshot upload -->
+  <input id="screenshot-file-input" type="file" accept="image/*" hidden />
+
+  <!-- Modal Container -->
+  <div id="modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h2 id="modal-title" class="modal-title">Dialog</h2>
+        <button type="button" id="modal-close-btn" class="icon-btn" aria-label="Close">✕</button>
+      </div>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

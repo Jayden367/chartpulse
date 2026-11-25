@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ChartPulse</string>
+    <string name="nav_analyst">Analysis</string>
+    <string name="nav_planner">Planner</string>
+    <string name="nav_journal">Journal</string>
+    <string name="sample_ai_notice_title">Sample Preview Mode</string>
+    <string name="sample_ai_notice_body">Live Gemini chart vision and AI Q&amp;A require Firebase AI Logic. Currently displaying sample analysis responses.</string>
+    <string name="pick_chart_screenshot">Screenshot</string>
+    <string name="analyze_pair">Analyze Pair</string>
+    <string name="ask_analyst_placeholder">Ask about entry, SL, S/R, or rollover risk...</string>
+    <string name="save_to_journal">Save Setup to Journal</string>
+</resources>

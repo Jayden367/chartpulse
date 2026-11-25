@@ -1,0 +1,8 @@
+{
+  "name": "Remix ChartPulse",
+  "description": "AI-powered trading chart analyzer, key level visualizer, and position risk planner for gold and forex traders.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
