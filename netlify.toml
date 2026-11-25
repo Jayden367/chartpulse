@@ -1,0 +1,6 @@
+# ChartPulse's website is the static, zero-build app in web/ (plain HTML, CSS
+# and JavaScript). The Gradle/Kotlin files at the repo root are the Android app,
+# which Netlify does not build or host.
+[build]
+  publish = "web"
+  command = "echo 'No build step: publishing the static site in web/'"
