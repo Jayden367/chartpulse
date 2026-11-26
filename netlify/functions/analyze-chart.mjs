@@ -2,26 +2,32 @@
 export const handler = async (event) => {
   const headers = {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*"
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS"
   };
 
+  const reply = (statusCode, data) => ({
+    statusCode,
+    headers,
+    body: JSON.stringify(data)
+  });
+
   if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 204, headers };
+    return reply(204, {});
   }
 
   if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: "Use POST." })
-    };
+    return reply(405, { error: "Use POST." });
   }
 
   try {
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      throw new Error("AI service is not configured.");
+      return reply(500, {
+        error: "AI service is not configured."
+      });
     }
 
     const body = JSON.parse(event.body || "{}");
@@ -30,11 +36,9 @@ export const handler = async (event) => {
     const timeframe = String(body.timeframe || "M15");
 
     if (!image || typeof image !== "string") {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: "Please provide a chart image." })
-      };
+      return reply(400, {
+        error: "Please provide a chart image."
+      });
     }
 
     const match = image.match(
@@ -42,36 +46,62 @@ export const handler = async (event) => {
     );
 
     if (!match || match[2].length > 9000000) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: "Invalid image or image too large." })
-      };
+      return reply(400, {
+        error: "Invalid image or image too large."
+      });
     }
 
     const mimeType = match[1];
     const imageData = match[2];
 
     const prompt = `
-Analyze this trading chart screenshot.
+You are ChartPulse AI, a careful technical
+trading chart analyst.
+
+Analyze the supplied chart screenshot.
 
 Market: ${symbol}
 Timeframe: ${timeframe}
 
-Explain:
-1. Overall trend and market structure.
-2. Important support and resistance areas.
-3. Possible bullish scenario.
-4. Possible bearish scenario.
-5. What would invalidate each scenario.
-6. Whether the screenshot is clear enough to analyze.
+Return ONLY valid JSON with these fields:
 
-Do not invent prices, indicators, or levels that cannot be read.
-If an entry, stop loss, or target cannot be justified, say so.
-Explain uncertainty. This is educational analysis, not financial advice.
-Do not claim these are live prices.
+{
+  "decision": "BUY, SELL, or WAIT",
+  "entry": null,
+  "stopLoss": null,
+  "takeProfits": [null, null, null],
+  "confidence": "LOW, MEDIUM, or HIGH",
+  "marketStructure": "",
+  "supportResistance": "",
+  "reasoning": "",
+  "invalidation": "",
+  "dataQuality": ""
+}
 
-Return a clear, useful analysis in plain text.
+RULES:
+
+1. Identify the market direction and structure.
+2. Only choose BUY or SELL when the screenshot
+   supports a clear technical setup.
+3. Otherwise choose WAIT.
+4. Never invent market prices.
+5. Only provide numeric entry, stop loss and
+   take profit values when they are justified
+   by readable chart prices and analysis.
+6. TP1, TP2 and TP3 must be in the correct
+   direction relative to the entry.
+7. Stop loss must be on the protective side
+   of the entry.
+8. If prices cannot be established, use null
+   and choose WAIT.
+9. Explain the reasons for the signal.
+10. State what would invalidate the setup.
+11. Confidence is a qualitative assessment,
+    NOT a measured probability.
+12. This screenshot is not live market data.
+13. Do not promise profitable trades.
+
+Return JSON only.
 `;
 
     const response = await fetch(
@@ -93,7 +123,11 @@ Return a clear, useful analysis in plain text.
                 }
               }
             ]
-          }]
+          }],
+          generationConfig: {
+            responseMimeType: "application/json",
+            temperature: 0.2
+          }
         })
       }
     );
@@ -101,41 +135,105 @@ Return a clear, useful analysis in plain text.
     const result = await response.json();
 
     if (!response.ok) {
-      return {
-        statusCode: 502,
-        headers,
-        body: JSON.stringify({
-          error: "The AI analysis service could not complete the request."
-        })
-      };
+      throw new Error("Gemini could not analyze the chart.");
     }
 
-    const analysis =
-      result.candidates?.[0]?.content?.parts
-        ?.map(part => part.text || "")
-        .join("\n")
-        .trim();
+    const raw = result.candidates?.[0]?.content
+      ?.parts?.map(part => part.text || "")
+      .join("")
+      .trim();
 
-    if (!analysis) {
-      throw new Error("No analysis was returned.");
+    if (!raw) {
+      throw new Error("No AI analysis was returned.");
     }
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        analysis,
-        disclaimer: "AI chart interpretation only. Not financial advice."
-      })
-    };
+    const signal = JSON.parse(raw);
+
+    if (!["BUY", "SELL", "WAIT"].includes(signal.decision)) {
+      throw new Error("Invalid AI signal.");
+    }
+
+    if (!["LOW", "MEDIUM", "HIGH"].includes(signal.confidence)) {
+      signal.confidence = "LOW";
+    }
+
+    const targets = Array.isArray(signal.takeProfits)
+      ? signal.takeProfits.slice(0, 3)
+      : [null, null, null];
+
+    while (targets.length < 3) targets.push(null);
+
+    const prices = [
+      signal.entry,
+      signal.stopLoss,
+      ...targets
+    ];
+
+    const validPrices = prices.every(
+      price => typeof price === "number" &&
+        Number.isFinite(price) && price > 0
+    );
+
+    if (!validPrices) {
+      signal.decision = "WAIT";
+      signal.entry = null;
+      signal.stopLoss = null;
+      signal.takeProfits = [null, null, null];
+      signal.confidence = "LOW";
+    } else {
+      signal.takeProfits = targets;
+    }
+
+    const format = value =>
+      value === null ? "Not established" : String(value);
+
+    const analysis = `
+CHARTPULSE AI - ${timeframe}
+
+Symbol: ${symbol}
+Status: SIGNAL ONLY - Execute manually
+
+SIGNAL: ${signal.decision}
+
+Entry: ${format(signal.entry)}
+Stop Loss: ${format(signal.stopLoss)}
+
+TP1: ${format(signal.takeProfits[0])}
+TP2: ${format(signal.takeProfits[1])}
+TP3: ${format(signal.takeProfits[2])}
+
+Confidence: ${signal.confidence}
+
+MARKET STRUCTURE:
+${signal.marketStructure || "Not established"}
+
+SUPPORT AND RESISTANCE:
+${signal.supportResistance || "Not established"}
+
+AI REASONING:
+${signal.reasoning || "No additional explanation."}
+
+INVALIDATION:
+${signal.invalidation || "Not established"}
+
+DATA QUALITY:
+${signal.dataQuality || "Screenshot only."}
+
+WARNING:
+Screenshot-based AI analysis.
+Not live market data or financial advice.
+`;
+
+    return reply(200, {
+      analysis,
+      signal,
+      disclaimer:
+        "Screenshot-based AI interpretation. Not financial advice."
+    });
 
   } catch (error) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: error.message || "Something went wrong."
-      })
-    };
+    return reply(500, {
+      error: error.message || "Analysis failed."
+    });
   }
 };
