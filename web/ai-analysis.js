@@ -126,7 +126,41 @@
         throw new Error(data.error || "Analysis failed.");
       }
 
-      result.textContent = data.analysis;
+      const signal = data.signal;
+
+if (signal) {
+  result.textContent = `
+TRADE SIGNAL: ${signal.decision}
+
+ENTRY: ${signal.entry ?? "N/A"}
+STOP LOSS: ${signal.stopLoss ?? "N/A"}
+
+TAKE PROFIT 1: ${signal.takeProfits?.[0] ?? "N/A"}
+TAKE PROFIT 2: ${signal.takeProfits?.[1] ?? "N/A"}
+TAKE PROFIT 3: ${signal.takeProfits?.[2] ?? "N/A"}
+
+CONFIDENCE: ${signal.confidence}
+
+MARKET STRUCTURE:
+${signal.marketStructure}
+
+SUPPORT & RESISTANCE:
+${signal.supportResistance}
+
+REASONING:
+${signal.reasoning}
+
+INVALIDATION:
+${signal.invalidation}
+
+DATA QUALITY:
+${signal.dataQuality}
+
+${data.disclaimer || ""}
+`;
+} else {
+  result.textContent = data.analysis || "No analysis received.";
+}
       status.textContent = "Analysis complete.";
     } catch (error) {
       status.textContent = error.message || "Could not analyze the chart.";
