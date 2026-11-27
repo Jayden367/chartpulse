@@ -90,7 +90,7 @@ RETURN ONLY VALID JSON using this exact structure:
     "confidence": "LOW, MEDIUM, or HIGH",
     "marketStructure": "Detailed market structure",
     "supportResistance": "Important support and resistance prices",                                   
-       "
+  
     "reasoning": "Clear explanation of why this decision was selected",
     "whatToWaitFor": "Exact price action or confirmation needed before the next trade decision",
     "invalidation": "Price or market condition that invalidates the setup",
