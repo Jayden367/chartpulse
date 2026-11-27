@@ -75,6 +75,32 @@ ANALYSIS RULES:
 14. Never invent prices, confirmations, indicators or market information that cannot be established from the chart.
 
 15. Never force a trade just to avoid returning WAIT. Protecting capital is more important than generating frequent signals.
+DEEP MARKET STRUCTURE ANALYSIS:
+
+1. Identify whether the market is trending bullish, trending bearish, ranging, or transitioning.
+
+2. Examine recent swing highs and swing lows. Identify higher highs, higher lows, lower highs and lower lows only when clearly visible.
+
+3. Identify whether price is making a genuine breakout, a false breakout, a pullback, a retest or a liquidity sweep.
+
+4. Evaluate whether bullish or bearish momentum is strengthening, weakening or showing signs of exhaustion.
+
+5. Identify nearby support, resistance, supply and demand zones using visible price action.
+
+6. For BUY setups, examine whether buyers are defending support, forming bullish structure or reclaiming broken resistance.
+
+7. For SELL setups, examine whether sellers are defending resistance, forming bearish structure or breaking and retesting support.
+
+8. Distinguish a confirmed breakout from a temporary candle spike. Prefer a candle close and successful retest when visible.
+
+9. Never assume that a support or resistance level will hold. Look for actual price reaction.
+
+10. Explain which direction has stronger evidence and identify the exact evidence that is still missing.
+
+11. If the market is consolidating, explain the range boundaries and avoid treating movement inside the range as a confirmed breakout.
+
+12. Base every conclusion on visible chart evidence. Never invent volume, indicators or price levels that are not visible.
+
 OPPORTUNITY SCORING SYSTEM:
 EARLY OPPORTUNITY WATCH:
 1. Calculate the BUY score and SELL score once, each as an integer from 0 to 10.
