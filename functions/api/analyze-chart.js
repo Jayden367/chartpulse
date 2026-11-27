@@ -66,8 +66,15 @@ For SELL, stop loss must be above entry and targets below entry.
 Be cautious. Do not promise profits.
 `;
 
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=" +
+   const models = ["gemini-3.8-flash", "gemini-3.5-flash"];
+
+let response;
+let result;
+
+for (const model of models) {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=` +
         encodeURIComponent(env.GEMINI_API_KEY),
       {
         method: "POST",
@@ -92,7 +99,25 @@ Be cautious. Do not promise profits.
       }
     );
 
-    const result = await response.json();
+    const responseText = await response.text();
+
+    try {
+      result = JSON.parse(responseText);
+    } catch {
+      result = { error: { message: responseText } };
+    }
+
+    if (response.ok) break;
+
+    if (![429, 500, 502, 503, 504].includes(response.status)) break;
+
+    if (attempt === 0) {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+    }
+  }
+
+  if (response.ok) break;
+}
 
     if (!response.ok) {
       return reply({
