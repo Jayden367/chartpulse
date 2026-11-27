@@ -278,7 +278,52 @@ let analysisSeconds = 0;
       result.appendChild(message);
       return;
     }
+    const early = data.earlyOpportunity;
 
+if (
+  early &&
+  ["BUY", "SELL"].includes(early.direction) &&
+  typeof early.score === "number" &&
+  early.score >= 6
+) {
+  const watch = document.createElement("div");
+  watch.className = "cp-card";
+  watch.style.cssText =
+    "margin:16px 0;border:1px solid #d97706;background:#29200f;color:#fff;";
+
+  const heading = document.createElement("h3");
+  heading.textContent = "EARLY OPPORTUNITY WATCH";
+  heading.style.color = "#fbbf24";
+
+  const direction = document.createElement("p");
+  direction.textContent = "Potential direction: " + early.direction;
+
+  const score = document.createElement("p");
+  score.textContent = "Score: " + early.score + "/10";
+
+  const zone = document.createElement("p");
+  zone.textContent = "Price zone: " + early.priceZone;
+
+  const confirmation = document.createElement("p");
+  confirmation.textContent =
+    "Confirmation needed: " + early.confirmationNeeded;
+
+  const warning = document.createElement("p");
+  warning.textContent =
+    "Developing setup only — not a confirmed trade.";
+  warning.style.color = "#fbbf24";
+
+  watch.append(
+    heading,
+    direction,
+    score,
+    zone,
+    confirmation,
+    warning
+  );
+
+  result.appendChild(watch);
+}
     const decision = ["BUY", "SELL", "WAIT"].includes(signal.decision)
       ? signal.decision : "WAIT";
 
