@@ -98,6 +98,7 @@ RETURN ONLY VALID JSON using this exact structure:
   }
 }
 
+
 OUTPUT REQUIREMENTS:
 - Use numeric prices for entry, stop loss and all three take-profit targets when a valid trade exists.
 - For WAIT, use null for entry, stop loss and all three targets.
@@ -105,12 +106,14 @@ OUTPUT REQUIREMENTS:
 - SELL: stop loss above entry; all targets below entry.
 - Targets must be ordered from nearest to furthest.
 - Never return made-up or contradictory levels.
-- Return valid JSON only, with no Markdown or extra text.
-`;
-
 - For WAIT, whatToWaitFor must explain a specific confirmation to watch for based on the chart.
 - For BUY or SELL, whatToWaitFor should briefly explain what would confirm the setup or state that the entry conditions are already met.
 - Never invent a confirmation price that cannot be read from the screenshot.
+- Return valid JSON only, with no Markdown or extra text.
+
+`;
+
+
    
 const models = ["gemini-3.5-flash-lite", "gemini-3.8-flash"];
 
