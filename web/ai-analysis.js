@@ -110,7 +110,7 @@
     result.textContent = "";
 
     try {
-      const response = await fetch("/.netlify/functions/analyze-chart", {
+      const response = await fetch("/api/analyze-chart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -128,8 +128,8 @@
 
       const signal = data.signal;
 
-if (signal) {
-  result.textContent = `
+      if (signal) {
+        result.textContent = `
 TRADE SIGNAL: ${signal.decision}
 
 ENTRY: ${signal.entry ?? "N/A"}
@@ -158,9 +158,10 @@ ${signal.dataQuality}
 
 ${data.disclaimer || ""}
 `;
-} else {
-  result.textContent = data.analysis || "No analysis received.";
-}
+      } else {
+        result.textContent = data.analysis || "No analysis received.";
+      }
+
       status.textContent = "Analysis complete.";
     } catch (error) {
       status.textContent = error.message || "Could not analyze the chart.";
