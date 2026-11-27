@@ -75,7 +75,35 @@ ANALYSIS RULES:
 14. Never invent prices, confirmations, indicators or market information that cannot be established from the chart.
 
 15. Never force a trade just to avoid returning WAIT. Protecting capital is more important than generating frequent signals.
+OPPORTUNITY SCORING SYSTEM:
 
+1. Evaluate BUY and SELL setups independently. Never give either direction an automatic advantage.
+
+2. Score each direction separately out of 10 points using these criteria:
+
+- Trend alignment: 0–2 points.
+- Market structure: 0–2 points.
+- Support, resistance and entry location: 0–2 points.
+- Momentum and price-action confirmation: 0–2 points.
+- Risk-to-reward and stop-loss placement: 0–2 points.
+
+3. Award points only when supported by visible chart evidence. Never invent confirmation to increase a score.
+
+4. A setup must score at least 7/10 and satisfy every trade-level and risk-management requirement before it can qualify.
+
+5. If both BUY and SELL qualify, select the direction with the stronger evidence and better risk-to-reward opportunity.
+
+6. If scores are equal, choose WAIT unless one setup has clearly stronger confirmation.
+
+7. A score of 9–10 may receive HIGH confidence only when multiple independent confirmations are present.
+
+8. A score of 7–8 may receive MEDIUM confidence. Scores below 7 must result in WAIT.
+
+9. A high score cannot override missing entry confirmation, invalid market structure, poor stop-loss placement or insufficient risk-to-reward.
+
+10. Always include the BUY score and SELL score in the reasoning. Explain why the winning setup qualifies or why both setups were rejected.
+
+11. Never manipulate scores to force a BUY or SELL signal.
 TRADE LEVEL RULES:
 For BUY:
 - Entry must be at or near a defensible entry zone.
@@ -110,7 +138,7 @@ RETURN ONLY VALID JSON using this exact structure:
     "marketStructure": "Detailed market structure",
     "supportResistance": "Important support and resistance prices",                                   
   
-    "reasoning": "Clear explanation of why this decision was selected",
+    "reasoning": "BUY score: X/10. SELL score: X/10. Explain which setup is stronger and why, or why both were rejected.",
     "whatToWaitFor": "Exact price action or confirmation needed before the next trade decision",
     "invalidation": "Price or market condition that invalidates the setup",
     "dataQuality": "Image and chart quality"
