@@ -102,22 +102,35 @@ DEEP MARKET STRUCTURE ANALYSIS:
 12. Base every conclusion on visible chart evidence. Never invent volume, indicators or price levels that are not visible.
 
 OPPORTUNITY SCORING SYSTEM:
+
 EARLY OPPORTUNITY WATCH:
+
 1. Calculate the BUY score and SELL score once, each as an integer from 0 to 10.
+
 2. Use those exact same scores in the reasoning field and earlyOpportunity field. Never calculate or report different scores in different sections.
+
 3. If the final decision is WAIT and the higher directional score is at least 6/10, return an earlyOpportunity object for that direction.
+
 4. The earlyOpportunity score must exactly equal the corresponding BUY or SELL score in reasoning.
+
 5. Use this exact structure:
-   {
-     "direction": "BUY or SELL",
-     "score": 6,
-     "priceZone": "Relevant price zone visible on the chart",
-     "confirmationNeeded": "Specific confirmation still required"
-   }
+{
+  "direction": "BUY or SELL",
+  "score": 6,
+  "priceZone": "Relevant price zone visible on the chart",
+  "confirmationNeeded": "Specific confirmation still required"
+}
+
 6. If BUY and SELL scores are equal, return earlyOpportunity as null.
+
 7. If both scores are below 6/10, return earlyOpportunity as null.
+
 8. If the final decision is BUY or SELL, return earlyOpportunity as null.
+
 9. Never invent prices or present an early opportunity as a confirmed trade.
+
+SCORING CRITERIA:
+
 1. Evaluate BUY and SELL setups independently. Never give either direction an automatic advantage.
 
 2. Score each direction separately out of 10 points using these criteria:
@@ -127,6 +140,18 @@ EARLY OPPORTUNITY WATCH:
 - Support, resistance and entry location: 0–2 points.
 - Momentum and price-action confirmation: 0–2 points.
 - Risk-to-reward and stop-loss placement: 0–2 points.
+
+DIRECTIONAL SCORING REQUIREMENTS:
+
+- Assess BUY and SELL independently using the five scoring criteria.
+- Award each direction its own points based only on evidence supporting that direction.
+- Do not automatically give BUY and SELL equal scores.
+- Do not automatically favour the current trend; assess reversal opportunities too.
+- Give credit for developing price-action evidence, including bullish or bearish rejection, liquidity sweeps, pullbacks, retests and emerging market structure.
+- Distinguish early evidence from confirmed entry signals. Developing evidence may increase an early opportunity score but cannot replace required trade confirmation.
+- For every criterion, explain why points were awarded or withheld for BUY and SELL.
+- Award zero points when there is no visible supporting evidence.
+- Never increase scores simply to produce an early opportunity or trade signal.
 
 3. Award points only when supported by visible chart evidence. Never invent confirmation to increase a score.
 
