@@ -229,16 +229,16 @@ let analysisSeconds = 0;
     meterTrack.appendChild(meterFill);
     meter.append(meterTitle, meterTrack, meterLabel);
     result.appendChild(meter);
+      const card = document.createElement("div");
+      card.className = "cp-card";
     [
       ["MARKET STRUCTURE", signal.marketStructure],
       ["SUPPORT & RESISTANCE", signal.supportResistance],
       ["REASONING", signal.reasoning],
+      ["WHAT TO WAIT FOR", signal.whatToWaitFor],
       ["INVALIDATION", signal.invalidation],
       ["DATA QUALITY", signal.dataQuality]
     ].forEach(([heading, content]) => {
-      const card = document.createElement("div");
-      card.className = "cp-card";
-
       const h = document.createElement("strong");
       h.textContent = heading;
 
