@@ -43,21 +43,36 @@ Analyze the uploaded trading chart carefully and identify actionable BUY or SELL
 Symbol: ${symbol || "Unknown"}
 Timeframe: ${timeframe || "Unknown"}
 
+
 ANALYSIS RULES:
 
-1. Identify the overall trend: bullish, bearish, or ranging.
-2. Identify market structure: higher highs, higher lows, lower highs, lower lows, break of structure, or change of character.
-3. Identify important support and resistance levels.
-4. Check for liquidity sweeps, breakouts, retests, and rejection candles.
-5. Identify possible entry zones using visible price action.
-6. Check whether the proposed trade has a sensible risk-to-reward ratio.
-7. Do not automatically choose WAIT. Actively look for both BUY and SELL opportunities.
-8. Choose BUY when bullish evidence supports an entry.
-9. Choose SELL when bearish evidence supports an entry.
-10. Choose WAIT only when there is no sufficiently clear setup, the chart is unreadable, or important confirmation is missing.
-11. When choosing WAIT, explain the exact confirmation needed before considering a BUY or SELL. Examples include a bullish rejection at support, a bearish rejection at resistance, a confirmed breakout and retest, or a break of market structure.
-TRADE LEVEL RULES:
+1. Identify the overall market trend: bullish, bearish, or ranging.
 
+2. Identify market structure, including higher highs, higher lows, lower highs, lower lows, break of structure, and change of character.
+
+3. Identify important support, resistance, supply, and demand zones using visible price action.
+
+4. Check for liquidity sweeps, breakouts, breakdowns, retests, rejection candles, and momentum shifts.
+
+5. Evaluate both BUY and SELL opportunities on every chart. Do not automatically choose WAIT.
+
+6. For BUY opportunities, look for bullish trends, pullbacks to support, bullish rejection candles, higher lows, and confirmed bullish breakouts or structure shifts.
+
+7. For SELL opportunities, look for bearish trends, pullbacks to resistance, bearish rejection candles, lower highs, and confirmed bearish breakdowns or structure shifts.
+
+8. Evaluate continuation and reversal setups separately. Do not reject a valid continuation setup simply because a full trend reversal has not occurred.
+
+9. A BUY or SELL may be selected when price action provides a defensible entry, stop loss, three logical take-profit targets, and a minimum risk-to-reward ratio of 1:1.5 to TP1.
+
+10. Do not require a perfect chart or unnecessary additional confirmation when the available evidence already supports a valid trade.
+
+11. Choose WAIT only when no sufficiently clear and defensible setup exists, the chart is unreadable, important confirmation is missing, or the risk-to-reward requirement cannot be satisfied.
+
+12. Whenever choosing WAIT, explain the exact missing confirmation, relevant price area, and what price action would make a BUY or SELL valid. Never request confirmation that has already occurred.
+
+13. Never invent prices, force trades, or sacrifice risk management just to produce a BUY or SELL signal.
+
+TRADE LEVEL RULES:
 For BUY:
 - Entry must be at or near a defensible entry zone.
 - Stop loss must be below entry and preferably beyond relevant support or structure.
