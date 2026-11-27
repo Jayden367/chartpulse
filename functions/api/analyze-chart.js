@@ -76,7 +76,19 @@ ANALYSIS RULES:
 
 15. Never force a trade just to avoid returning WAIT. Protecting capital is more important than generating frequent signals.
 OPPORTUNITY SCORING SYSTEM:
-
+EARLY OPPORTUNITY WATCH:
+1. When the final decision is WAIT, return an earlyOpportunity object if the strongest directional setup scores at least 6/10 but does not yet qualify for a confirmed trade.
+2. Use this exact structure:
+   {
+     "direction": "BUY or SELL",
+     "score": 6,
+     "priceZone": "Relevant price zone visible on the chart",
+     "confirmationNeeded": "Specific confirmation still required"
+   }
+3. Choose the stronger direction using the BUY and SELL scores. If both scores are equal, return null.
+4. If neither direction scores at least 6/10, return null.
+5. If the final decision is BUY or SELL, return earlyOpportunity as null.
+6. Never invent prices or present an early opportunity as a confirmed trade.
 1. Evaluate BUY and SELL setups independently. Never give either direction an automatic advantage.
 
 2. Score each direction separately out of 10 points using these criteria:
@@ -126,7 +138,6 @@ RISK MANAGEMENT:
 - Confidence must reflect the actual strength of the chart evidence.
 
 RETURN ONLY VALID JSON using this exact structure:
-
 {
   "analysis": "Detailed explanation of trend, structure and price action",
   "signal": {
@@ -136,14 +147,15 @@ RETURN ONLY VALID JSON using this exact structure:
     "takeProfits": [null, null, null],
     "confidence": "LOW, MEDIUM, or HIGH",
     "marketStructure": "Detailed market structure",
-    "supportResistance": "Important support and resistance prices",                                   
-  
-    "reasoning": "BUY score: X/10. SELL score: X/10. Explain which setup is stronger and why, or why both were rejected.",
-    "whatToWaitFor": "Exact price action or confirmation needed before the next trade decision",
-    "invalidation": "Price or market condition that invalidates the setup",
+    "supportResistance": "Important support and resistance prices",
+    "reasoning": "BUY score: X/10. SELL score: X/10. Explain which setup is stronger and why.",
+    "whatToWaitFor": "Exact confirmation needed",
+    "invalidation": "What invalidates the setup",
     "dataQuality": "Image and chart quality"
-  }
+  },
+  "earlyOpportunity": null
 }
+
 
 
 OUTPUT REQUIREMENTS:
@@ -238,7 +250,36 @@ if (!response) {
       return reply({ error: "Invalid analysis response." }, 502);
     }
 
-    
+    let earlyOpportunity = null;
+
+const early = parsed.earlyOpportunity;
+
+if (
+  signal.decision === "WAIT" &&
+  early &&
+  typeof early === "object" &&
+  !Array.isArray(early)
+) {
+  const validEarly =
+    ["BUY", "SELL"].includes(early.direction) &&
+    typeof early.score === "number" &&
+    Number.isFinite(early.score) &&
+    early.score >= 6 &&
+    early.score <= 10 &&
+    typeof early.priceZone === "string" &&
+    early.priceZone.trim().length > 0 &&
+    typeof early.confirmationNeeded === "string" &&
+    early.confirmationNeeded.trim().length > 0;
+
+  if (validEarly) {
+    earlyOpportunity = {
+      direction: early.direction,
+      score: early.score,
+      priceZone: early.priceZone.trim(),
+      confirmationNeeded: early.confirmationNeeded.trim()
+    };
+  }
+}
     const targets = signal.takeProfits;
 
     const validTargets =
@@ -305,10 +346,11 @@ if (!response) {
 
 
     return reply({
-      analysis: parsed.analysis || "Chart analysis completed.",
-      signal,
-      disclaimer: "Screenshot-based AI interpretation. Not financial advice."
-    });
+  analysis: parsed.analysis || "Chart analysis completed.",
+  signal,
+  earlyOpportunity,
+  disclaimer: "Screenshot-based AI interpretation. Not financial advice."
+});
 
   } catch (error) {
     return reply({
