@@ -55,7 +55,7 @@ ANALYSIS RULES:
 8. Choose BUY when bullish evidence supports an entry.
 9. Choose SELL when bearish evidence supports an entry.
 10. Choose WAIT only when there is no sufficiently clear setup, the chart is unreadable, or important confirmation is missing.
-
+11. When choosing WAIT, explain the exact confirmation needed before considering a BUY or SELL. Examples include a bullish rejection at support, a bearish rejection at resistance, a confirmed breakout and retest, or a break of market structure.
 TRADE LEVEL RULES:
 
 For BUY:
@@ -89,8 +89,10 @@ RETURN ONLY VALID JSON using this exact structure:
     "takeProfits": [null, null, null],
     "confidence": "LOW, MEDIUM, or HIGH",
     "marketStructure": "Detailed market structure",
-    "supportResistance": "Important support and resistance prices",
+    "supportResistance": "Important support and resistance prices",                                   
+       "
     "reasoning": "Clear explanation of why this decision was selected",
+    "whatToWaitFor": "Exact price action or confirmation needed before the next trade decision",
     "invalidation": "Price or market condition that invalidates the setup",
     "dataQuality": "Image and chart quality"
   }
@@ -106,7 +108,9 @@ OUTPUT REQUIREMENTS:
 - Return valid JSON only, with no Markdown or extra text.
 `;
 
-
+- For WAIT, whatToWaitFor must explain a specific confirmation to watch for based on the chart.
+- For BUY or SELL, whatToWaitFor should briefly explain what would confirm the setup or state that the entry conditions are already met.
+- Never invent a confirmation price that cannot be read from the screenshot.
    
 const models = ["gemini-3.5-flash-lite", "gemini-3.8-flash"];
 
