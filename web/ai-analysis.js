@@ -205,7 +205,31 @@
     );
 
     result.appendChild(prices);
+    const confidenceText = String(signal.confidence || "LOW").toUpperCase();
+    const confidenceScore =
+      confidenceText.includes("HIGH") ? 90 :
+      confidenceText.includes("MEDIUM") ? 60 : 30;
 
+    const meter = document.createElement("div");
+    meter.className = "cp-card";
+
+    const meterTitle = document.createElement("strong");
+    meterTitle.textContent = "AI CONFIDENCE METER";
+
+    const meterTrack = document.createElement("div");
+    meterTrack.style.cssText =
+      "height:12px;background:#334155;border-radius:20px;margin-top:12px;overflow:hidden;";
+
+    const meterFill = document.createElement("div");
+    meterFill.style.cssText =
+      `height:100%;width:${confidenceScore}%;background:#fbbf24;border-radius:20px;`;
+
+    const meterLabel = document.createElement("p");
+    meterLabel.textContent = `${confidenceText} · ${confidenceScore}%`;
+
+    meterTrack.appendChild(meterFill);
+    meter.append(meterTitle, meterTrack, meterLabel);
+    result.appendChild(meter);
     [
       ["MARKET STRUCTURE", signal.marketStructure],
       ["SUPPORT & RESISTANCE", signal.supportResistance],
