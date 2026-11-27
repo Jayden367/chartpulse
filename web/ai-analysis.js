@@ -68,6 +68,33 @@
       <div id="cp-history"></div>
       <button id="cp-clear" type="button">Clear history</button>
     </div>
+    
+    <div class="cp-card" id="cp-tracker">
+      <h3>ChartPulse Performance Tracker</h3>
+      <p class="cp-muted">Track your actual trading results.</p>
+
+      <div class="cp-grid">
+        <div class="cp-card">
+          <div class="cp-muted">TOTAL TRADES</div>
+          <div class="cp-value" id="cp-total">0</div>
+        </div>
+        <div class="cp-card">
+          <div class="cp-muted">WINS</div>
+          <div class="cp-value" id="cp-wins">0</div>
+        </div>
+        <div class="cp-card">
+          <div class="cp-muted">LOSSES</div>
+          <div class="cp-value" id="cp-losses">0</div>
+        </div>
+        <div class="cp-card">
+          <div class="cp-muted">WIN RATE</div>
+          <div class="cp-value" id="cp-winrate">0%</div>
+        </div>
+      </div>
+
+      <h3>Trade Records</h3>
+      <div id="cp-tracker-history">No trades recorded yet.</div>
+    </div>
 
     <p class="cp-muted">
       Screenshot-based AI interpretation only.
@@ -92,7 +119,7 @@
   const button = $("cp-analyze");
   const preview = $("cp-preview");
   const HISTORY_KEY = "chartpulse_ai_history_v1";
-
+  const TRACKER_KEY = "chartpulse_performance_v1";
   let imageDataUrl = "";
 let analysisTimer = null;
 let analysisSeconds = 0;
@@ -141,6 +168,86 @@ let analysisSeconds = 0;
       date.textContent = item.date;
 
       entry.append(heading, date);
+      area.appendChild(entry);
+    });
+  }
+  
+  function getTrades() {
+    try {
+      return JSON.parse(localStorage.getItem(TRACKER_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function saveTrade(trade) {
+    const trades = getTrades();
+    trades.unshift(trade);
+    localStorage.setItem(TRACKER_KEY, JSON.stringify(trades));
+    renderTracker();
+  }
+
+  function renderTracker() {
+    const trades = getTrades();
+    const wins = trades.filter(t => t.outcome === "WIN").length;
+    const losses = trades.filter(t => t.outcome === "LOSS").length;
+    const closed = wins + losses;
+    const winRate = closed ? Math.round(wins / closed * 100) : 0;
+
+    $("cp-total").textContent = trades.length;
+    $("cp-wins").textContent = wins;
+    $("cp-losses").textContent = losses;
+    $("cp-winrate").textContent = winRate + "%";
+
+    const area = $("cp-tracker-history");
+    area.replaceChildren();
+
+    if (!trades.length) {
+      area.textContent = "No trades recorded yet.";
+      return;
+    }
+
+    trades.forEach(trade => {
+      const entry = document.createElement("div");
+      entry.className = "cp-history-item";
+
+      const heading = document.createElement("strong");
+      heading.textContent =
+        `${trade.symbol} · ${trade.timeframe} · ${trade.decision}`;
+
+      const details = document.createElement("p");
+      details.className = "cp-muted";
+      details.textContent =
+        `Entry: ${trade.entry} · Stop: ${trade.stopLoss} · ${trade.date}`;
+
+      const outcome = document.createElement("p");
+      outcome.textContent = "Result: " + (trade.outcome || "PENDING");
+
+      entry.append(heading, details, outcome);
+
+      if (!trade.outcome) {
+        ["WIN", "LOSS", "BREAKEVEN"].forEach(value => {
+          const action = document.createElement("button");
+          action.type = "button";
+          action.textContent = value;
+          action.style.width = "auto";
+          action.style.marginRight = "6px";
+
+          action.addEventListener("click", () => {
+            const updated = getTrades();
+            const found = updated.find(t => t.id === trade.id);
+
+            if (!found || found.outcome) return;
+
+            found.outcome = value;
+            localStorage.setItem(TRACKER_KEY, JSON.stringify(updated));
+            renderTracker();
+          });
+
+          entry.appendChild(action);
+        });
+      }
+
       area.appendChild(entry);
     });
   }
@@ -255,14 +362,30 @@ let analysisSeconds = 0;
       "Screenshot-based AI interpretation. Not financial advice.";
     result.appendChild(disclaimer);
 
-    saveHistory({
+        saveHistory({
       symbol,
       timeframe,
       decision,
       date: new Date().toLocaleString()
     });
+
+    if (decision === "BUY" || decision === "SELL") {
+      
+      saveTrade({
+        id: Date.now().toString(),
+        symbol,
+        timeframe,
+        decision,
+        entry: signal.entry,
+        stopLoss: signal.stopLoss,
+        takeProfits: signal.takeProfits || [],
+        date: new Date().toLocaleString(),
+        outcome: null
+      });
+        }
   }
 
+  
   $("cp-image").addEventListener("change", () => {
     const file = $("cp-image").files[0];
     imageDataUrl = "";
@@ -383,4 +506,5 @@ try {
   });
 
   renderHistory();
+  renderTracker();
 })();
