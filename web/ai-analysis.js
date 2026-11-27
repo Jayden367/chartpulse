@@ -96,7 +96,8 @@
   const HISTORY_KEY = "chartpulse_ai_history_v1";
 
   let imageDataUrl = "";
-
+let analysisTimer = null;
+let analysisSeconds = 0;
   function getHistory() {
     try {
       return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
@@ -309,7 +310,17 @@
     button.disabled = true;
     status.textContent = "Analyzing your chart. Please wait...";
     result.replaceChildren();
+analysisSeconds = 0;
 
+clearInterval(analysisTimer);
+
+analysisTimer = setInterval(() => {
+  analysisSeconds++;
+
+  status.textContent = analysisSeconds >= 15
+  ? `Still waiting... The AI service may be busy. Please keep this page open. (${analysisSeconds}s)`
+  : `Analyzing your chart... ${analysisSeconds}s elapsed. Please wait.`;
+}, 1000);
     const symbol = $("cp-symbol").value;
     const timeframe = $("cp-timeframe").value;
 
@@ -347,9 +358,19 @@ try {
 
       showAnalysis(data, symbol, timeframe);
       status.textContent = "Analysis complete.";
-    } catch (error) {
-      status.textContent = error.message ||
-        "Could not analyze the chart.";
+   } catch (error) {
+  status.textContent = error.message ||
+    "Analysis failed. Please try again in a moment.";
+
+  result.replaceChildren();
+
+  const errorCard = document.createElement("div");
+  errorCard.className = "cp-card";
+  errorCard.textContent =
+    "If the AI service is busy, wait a little and try again with your chart screenshot.";
+
+  result.appendChild(errorCard);
+}
     } finally {
       button.disabled = false;
     }
