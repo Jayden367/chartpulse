@@ -77,18 +77,21 @@ ANALYSIS RULES:
 15. Never force a trade just to avoid returning WAIT. Protecting capital is more important than generating frequent signals.
 OPPORTUNITY SCORING SYSTEM:
 EARLY OPPORTUNITY WATCH:
-1. When the final decision is WAIT, return an earlyOpportunity object if the strongest directional setup scores at least 6/10 but does not yet qualify for a confirmed trade.
-2. Use this exact structure:
+1. Calculate the BUY score and SELL score once, each as an integer from 0 to 10.
+2. Use those exact same scores in the reasoning field and earlyOpportunity field. Never calculate or report different scores in different sections.
+3. If the final decision is WAIT and the higher directional score is at least 6/10, return an earlyOpportunity object for that direction.
+4. The earlyOpportunity score must exactly equal the corresponding BUY or SELL score in reasoning.
+5. Use this exact structure:
    {
      "direction": "BUY or SELL",
      "score": 6,
      "priceZone": "Relevant price zone visible on the chart",
      "confirmationNeeded": "Specific confirmation still required"
    }
-3. Choose the stronger direction using the BUY and SELL scores. If both scores are equal, return null.
-4. If neither direction scores at least 6/10, return null.
-5. If the final decision is BUY or SELL, return earlyOpportunity as null.
-6. Never invent prices or present an early opportunity as a confirmed trade.
+6. If BUY and SELL scores are equal, return earlyOpportunity as null.
+7. If both scores are below 6/10, return earlyOpportunity as null.
+8. If the final decision is BUY or SELL, return earlyOpportunity as null.
+9. Never invent prices or present an early opportunity as a confirmed trade.
 1. Evaluate BUY and SELL setups independently. Never give either direction an automatic advantage.
 
 2. Score each direction separately out of 10 points using these criteria:
@@ -249,23 +252,39 @@ if (!response) {
     if (!signal) {
       return reply({ error: "Invalid analysis response." }, 502);
     }
-
+   const targets = signal.takeProfits;
     let earlyOpportunity = null;
 
 const early = parsed.earlyOpportunity;
+const reasoning = String(signal.reasoning || "");
+
+const buyMatch = reasoning.match(/BUY score:\s*(\d+)\s*\/\s*10/i);
+const sellMatch = reasoning.match(/SELL score:\s*(\d+)\s*\/\s*10/i);
+
+const buyScore = buyMatch ? Number(buyMatch[1]) : null;
+const sellScore = sellMatch ? Number(sellMatch[1]) : null;
 
 if (
   signal.decision === "WAIT" &&
   early &&
   typeof early === "object" &&
-  !Array.isArray(early)
+  !Array.isArray(early) &&
+  buyScore !== null &&
+  sellScore !== null
 ) {
+  const matchingScore =
+    early.direction === "BUY" ? buyScore :
+    early.direction === "SELL" ? sellScore :
+    null;
+
   const validEarly =
-    ["BUY", "SELL"].includes(early.direction) &&
+    matchingScore !== null &&
     typeof early.score === "number" &&
-    Number.isFinite(early.score) &&
+    Number.isInteger(early.score) &&
     early.score >= 6 &&
     early.score <= 10 &&
+    early.score === matchingScore &&
+    buyScore !== sellScore &&
     typeof early.priceZone === "string" &&
     early.priceZone.trim().length > 0 &&
     typeof early.confirmationNeeded === "string" &&
@@ -280,7 +299,6 @@ if (
     };
   }
 }
-    const targets = signal.takeProfits;
 
     const validTargets =
       Array.isArray(targets) && targets.length === 3;
