@@ -191,11 +191,16 @@ if (!response) {
       return reply({ error: "Invalid analysis response." }, 502);
     }
 
+    
     const targets = signal.takeProfits;
+
+    const validTargets =
+      Array.isArray(targets) && targets.length === 3;
+
     const prices = [
       signal.entry,
       signal.stopLoss,
-      ...(Array.isArray(targets) ? targets : [])
+      ...(validTargets ? targets : [])
     ];
 
     const validPrices =
@@ -207,17 +212,32 @@ if (!response) {
       );
 
     const validDirection =
-      signal.decision === "BUY"
-        ? signal.stopLoss < signal.entry &&
-          targets[0] > signal.entry &&
-          targets[1] > targets[0] &&
-          targets[2] > targets[1]
-        : signal.decision === "SELL"
-        ? signal.stopLoss > signal.entry &&
-          targets[0] < signal.entry &&
-          targets[1] < targets[0] &&
-          targets[2] < targets[1]
-        : false;
+      validTargets &&
+      (
+        signal.decision === "BUY"
+          ? signal.stopLoss < signal.entry &&
+            targets[0] > signal.entry &&
+            targets[1] > targets[0] &&
+            targets[2] > targets[1]
+          : signal.decision === "SELL"
+          ? signal.stopLoss > signal.entry &&
+            targets[0] < signal.entry &&
+            targets[1] < targets[0] &&
+            targets[2] < targets[1]
+          : false
+      );
+
+    const risk = validPrices
+      ? Math.abs(signal.entry - signal.stopLoss)
+      : 0;
+
+    const reward = validPrices
+      ? Math.abs(targets[0] - signal.entry)
+      : 0;
+
+    const riskReward = risk > 0 ? reward / risk : 0;
+
+    const validRiskReward = riskReward >= 1.5;
 
     if (signal.decision === "WAIT") {
       signal.entry = null;
@@ -226,7 +246,8 @@ if (!response) {
     } else if (
       !["BUY", "SELL"].includes(signal.decision) ||
       !validPrices ||
-      !validDirection
+      !validDirection ||
+      !validRiskReward
     ) {
       signal.decision = "WAIT";
       signal.entry = null;
@@ -234,6 +255,7 @@ if (!response) {
       signal.takeProfits = [null, null, null];
       signal.confidence = "LOW";
     }
+
 
     return reply({
       analysis: parsed.analysis || "Chart analysis completed.",
