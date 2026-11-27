@@ -370,8 +370,10 @@ try {
   result.appendChild(errorCard);
 }
      finally {
-      button.disabled = false;
-    }
+  clearInterval(analysisTimer);
+  analysisTimer = null;
+  button.disabled = false;
+}
   });
 
   $("cp-clear").addEventListener("click", () => {
