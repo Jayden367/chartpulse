@@ -324,7 +324,22 @@
         })
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+let data;
+
+try {
+  data = JSON.parse(responseText);
+} catch {
+  if (response.status === 524) {
+    throw new Error(
+      "Analysis timed out. Please try a smaller chart screenshot."
+    );
+  }
+
+  throw new Error(
+    `Server error (HTTP ${response.status}). Please try again.`
+  );
+}
 
       if (!response.ok) {
         throw new Error(data.error || "Analysis failed.");
