@@ -369,7 +369,7 @@ try {
 
   result.appendChild(errorCard);
 }
-    } finally {
+     finally {
       button.disabled = false;
     }
   });
