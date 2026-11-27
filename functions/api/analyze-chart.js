@@ -68,7 +68,7 @@ ANALYSIS RULES:
 
 11. Use HIGH confidence only when several strong, independent confirmations agree. Use MEDIUM or LOW when evidence is weaker. Never inflate confidence.
 
-12. Choose WAIT when neither direction has a sufficiently confirmed setup, the chart is unreadable, or risk management requirements cannot be satisfied.
+12. Choose WAIT when neither direction has a sufficiently confirmed setup, the chart is unreadable, or risk management requirements cannot be satisfied. When a developing setup exists, explain whether it is an early BUY opportunity or an early SELL opportunity, its score, the important price zone, and the exact confirmation still needed. Never invent entry, stop loss or take-profit prices for an unconfirmed setup.
 
 13. Whenever choosing WAIT, explain the exact missing confirmation for BOTH BUY and SELL, the important price levels, and what price action would validate either direction.
 
@@ -89,7 +89,7 @@ OPPORTUNITY SCORING SYSTEM:
 
 3. Award points only when supported by visible chart evidence. Never invent confirmation to increase a score.
 
-4. A setup must score at least 7/10 and satisfy every trade-level and risk-management requirement before it can qualify.
+4. A setup must score at least 6/10 to be considered an EARLY OPPORTUNITY, but it must score at least 7/10 and satisfy every trade-level and risk-management requirement before it can qualify as a BUY or SELL signal.
 
 5. If both BUY and SELL qualify, select the direction with the stronger evidence and better risk-to-reward opportunity.
 
@@ -97,11 +97,11 @@ OPPORTUNITY SCORING SYSTEM:
 
 7. A score of 9–10 may receive HIGH confidence only when multiple independent confirmations are present.
 
-8. A score of 7–8 may receive MEDIUM confidence. Scores below 7 must result in WAIT.
+8. A score of 7–8 may receive MEDIUM confidence. Scores below 7 must result in WAIT, but scores of 6/10 should be clearly identified as developing early opportunities, with the exact missing confirmation explained. Never present an early opportunity as a confirmed trade.
 
 9. A high score cannot override missing entry confirmation, invalid market structure, poor stop-loss placement or insufficient risk-to-reward.
 
-10. Always include the BUY score and SELL score in the reasoning. Explain why the winning setup qualifies or why both setups were rejected.
+10. Always include the BUY score and SELL score in the reasoning. Identify the stronger direction, explain whether it is a confirmed setup or an early opportunity, and state exactly what confirmation is still needed. If both setups are rejected, explain why.
 
 11. Never manipulate scores to force a BUY or SELL signal.
 TRADE LEVEL RULES:
