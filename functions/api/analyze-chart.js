@@ -78,7 +78,8 @@ for (const model of models) {
         encodeURIComponent(env.GEMINI_API_KEY),
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers:{ "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(60000),
         body: JSON.stringify({
           contents: [{
             parts: [
