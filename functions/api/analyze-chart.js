@@ -107,20 +107,21 @@ OUTPUT REQUIREMENTS:
 `;
 
 
-   const models = ["gemini-3.8-flash", "gemini-3.5-flash"];
+   
+const models = ["gemini-3.8-flash", "gemini-3.6-flash"];
 
-let response;
-let result;
+let response = null;
+let result = null;
 
 for (const model of models) {
-  for (let attempt = 0; attempt < 2; attempt++) {
+  try {
     response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=` +
         encodeURIComponent(env.GEMINI_API_KEY),
       {
         method: "POST",
-        headers:{ "Content-Type": "application/json" },
-        signal: AbortSignal.timeout(60000),
+        headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(25000),
         body: JSON.stringify({
           contents: [{
             parts: [
@@ -151,21 +152,24 @@ for (const model of models) {
 
     if (response.ok) break;
 
-    if (![429, 500, 502, 503, 504].includes(response.status)) break;
-
-    if (attempt === 0) {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-    }
+  } catch (error) {
+    result = {
+      error: {
+        message: error.message || "Gemini request timed out."
+      }
+    };
+    response = null;
   }
-
-  if (response.ok) break;
+  
+  if (response?.ok) break;
 }
 
-    if (!response.ok) {
-      return reply({
-        error: result.error?.message || "Gemini analysis failed."
-      }, 502);
-    }
+if (!response) {
+  return reply({
+    error: result?.error?.message || "Both AI requests timed out."
+  }, 504);
+}
+
 
     const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
