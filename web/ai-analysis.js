@@ -76,11 +76,9 @@
   `;
 
   const mount = () => {
-    if (document.getElementById(panel.id)) return;
-    const target = document.querySelector("main") ||
-      document.querySelector(".app") || document.body;
-    target.appendChild(panel);
-  };
+  if (document.getElementById(panel.id)) return;
+  document.body.appendChild(panel);
+};
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", mount);
