@@ -225,7 +225,7 @@ RETURN ONLY VALID JSON using this exact structure:
     "confidence": "LOW, MEDIUM, or HIGH",
     "marketStructure": "Detailed market structure",
     "supportResistance": "Important support and resistance prices",
-    "reasoning": "BUY score: X/10. BUY breakdown: Trend X/2, Structure X/2, Support/Resistance X/2, Momentum X/2, Risk-to-reward X/2. SELL score: X/10. SELL breakdown: Trend X/2, Structure X/2, Support/Resistance X/2, Momentum X/2, Risk-to-reward X/2. Explain which setup is stronger and why.",
+    "reasoning": "BUY score: X/10. BUY breakdown: Trend X/2, Structure X/2, Support/Resistance X/2, Momentum X/2, Risk-to-reward X/2. SELL score: X/10. SELL breakdown: Trend X/2, Structure X/2, Support/Resistance X/2, Momentum X/2, Risk-to-reward X/2. Each X must be a whole number from 0 to 2. Add the five scores to get the total out of 10. The total must match exactly. Never use /1, /5 or any denominator other than /2 for individual criteria. Explain which setup is stronger and why.",
     "whatToWaitFor": "Exact confirmation needed",
     "invalidation": "What invalidates the setup",
     "dataQuality": "Image and chart quality"
