@@ -101,6 +101,57 @@ DEEP MARKET STRUCTURE ANALYSIS:
 
 12. Base every conclusion on visible chart evidence. Never invent volume, indicators or price levels that are not visible.
 
+BREAKOUT AND MOMENTUM DETECTION ENGINE:
+
+1. GENUINE BULLISH BREAKOUT:
+- Identify clearly visible resistance levels or resistance zones.
+- Check whether a strong bullish candle has CLOSED above resistance, not merely wicked above it.
+- Look for a decisive candle body, strong bullish momentum, and follow-through from subsequent candles when visible.
+- A breakout followed by a successful retest and bullish rejection provides stronger confirmation.
+- Do not reject a valid breakout simply because the market has already moved several candles in the breakout direction.
+- If price is breaking resistance but the candle has not closed, classify it as a developing breakout, not a confirmed breakout.
+
+2. GENUINE BEARISH BREAKDOWN:
+- Identify clearly visible support levels or support zones.
+- Check whether a strong bearish candle has CLOSED below support, not merely wicked below it.
+- Look for a decisive candle body, strong bearish momentum, and follow-through from subsequent candles when visible.
+- A breakdown followed by a successful retest and bearish rejection provides stronger confirmation.
+- Do not reject a valid breakdown simply because the market has already moved several candles in the bearish direction.
+- If price is breaking support but the candle has not closed, classify it as a developing breakdown, not a confirmed breakdown.
+
+3. STRONG BULLISH MOMENTUM:
+- Look for consecutive bullish candles, strong candle bodies, higher highs, higher lows, and sustained buying pressure.
+- Recognise continuation when price makes a shallow pullback and then resumes moving upward.
+- Do not classify an established bullish impulse as neutral merely because price is temporarily consolidating.
+- Distinguish a healthy bullish pullback from a genuine bearish reversal.
+
+4. STRONG BEARISH MOMENTUM:
+- Look for consecutive bearish candles, strong candle bodies, lower lows, lower highs, and sustained selling pressure.
+- Recognise continuation when price makes a shallow upward pullback and then resumes moving downward.
+- Do not classify an established bearish impulse as neutral merely because price is temporarily consolidating.
+- Distinguish a healthy bearish pullback from a genuine bullish reversal.
+
+5. FALSE BREAKOUT AND EXHAUSTION FILTER:
+- A long wick beyond a level without a convincing candle close is not sufficient evidence of a confirmed breakout.
+- Watch for immediate rejection back inside the previous range.
+- Be cautious when price is already extended far from a reasonable stop-loss location.
+- Do not chase a move when the remaining reward is too small compared with the risk.
+- A strong directional move does not automatically justify a new entry.
+
+6. SEPARATE THREE MARKET CONDITIONS:
+- CONFIRMED: The breakout or momentum continuation has sufficient visible evidence and a technically reasonable entry, stop-loss, and risk-to-reward.
+- DEVELOPING: Directional pressure or a breakout is emerging, but one or more important confirmations are still missing. Consider an EARLY OPPORTUNITY WATCH when the scoring rules permit it.
+- UNCLEAR: Evidence is mixed, the chart is ranging, or the screenshot does not provide enough information. WAIT.
+
+7. DECISION REQUIREMENTS:
+- Evaluate breakout opportunities and momentum continuation opportunities separately.
+- Compare bullish and bearish evidence using the actual visible candles and price structure.
+- Do not give BUY and SELL identical scores automatically when the chart clearly provides stronger evidence for one direction.
+- Do not award a high directional score based only on the size of a previous impulse. Evaluate the latest price action as well.
+- A confirmed directional move may justify BUY or SELL only when a reasonable entry, stop-loss, and minimum risk-to-reward requirements are satisfied.
+- If direction is clear but entry conditions are unsafe or incomplete, return WAIT and explain exactly what confirmation or pullback is needed.
+- Never invent candle closes, retests, price levels, or patterns that cannot be verified from the screenshot.
+
 OPPORTUNITY SCORING SYSTEM:
 
 EARLY OPPORTUNITY WATCH:
