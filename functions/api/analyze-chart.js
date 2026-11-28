@@ -141,58 +141,58 @@ SCORING CRITERIA:
 - Momentum and price-action confirmation: 0–2 points.
 - Risk-to-reward and stop-loss placement: 0–2 points.
 
-
 DIRECTIONAL SCORING REQUIREMENTS:
 
-1. Assess BUY and SELL independently using all five scoring criteria.
+1. Assess BUY and SELL independently. Never assume both directions deserve similar scores.
 
-2. Show a separate score for every criterion for BOTH directions:
-   - Trend alignment: 0–2.
-   - Market structure: 0–2.
-   - Support, resistance and entry location: 0–2.
-   - Momentum and price-action confirmation: 0–2.
-   - Risk-to-reward and stop-loss placement: 0–2.
+2. Score each of the five criteria separately from 0 to 2 for BOTH directions.
 
-3. Add the five individual scores to calculate the final BUY and SELL scores. Never calculate the totals separately or inconsistently.
+3. Use these strict scoring definitions:
 
-4. Recognise developing bullish and bearish opportunities before full confirmation. Give evidence-based credit for:
-   - Strong bullish or bearish recovery movements.
-   - Higher lows or lower highs.
-   - Rejection candles at important price zones.
-   - Liquidity sweeps followed by strong reactions.
-   - Breakouts, pullbacks and successful retests.
-   - Increasing directional momentum.
+0/2 — NO EVIDENCE:
+No clear supporting evidence is visible, or the evidence contradicts the direction.
 
-5. Do not require every developing opportunity to have a completed breakout before recognising its potential.
+1/2 — PARTIAL EVIDENCE:
+Some supporting evidence exists, but it is mixed, weak, incomplete or not sufficiently confirmed.
 
-6. Distinguish developing opportunities from confirmed entries. Early evidence can increase the opportunity score but cannot replace trade confirmation.
+2/2 — STRONG EVIDENCE:
+Clear, visible and convincing evidence strongly supports the direction. The evidence must be specific to that criterion.
 
-7. Do not automatically favour the existing trend. Evaluate reversals and continuation setups independently.
+4. Do not automatically award 1/2. Award zero when evidence is absent or contradictory. Award two only when evidence is strong and clearly visible.
 
-8. Award zero points when a criterion has no visible supporting evidence.
+5. TREND ALIGNMENT:
+BUY: Award points for a clearly bullish trend or convincing bullish recovery.
+SELL: Award points for a clearly bearish trend or convincing bearish recovery.
+A sideways market must not automatically receive full trend points.
 
-9. Explain the points awarded and withheld for each BUY and SELL criterion.
+6. MARKET STRUCTURE:
+Evaluate swing highs, swing lows, breakouts, breakdowns, reversals and structural shifts.
+Award points only when the relevant structure is visible.
 
-10. Never increase scores simply to produce more signals.
+7. SUPPORT, RESISTANCE AND ENTRY LOCATION:
+Evaluate whether price is near a meaningful level and whether the location offers a defensible entry.
+Do not award full points simply because support or resistance exists somewhere on the chart.
 
+8. MOMENTUM AND PRICE ACTION:
+Evaluate candle strength, rejection, follow-through, directional momentum and confirmation.
+Do not confuse a single large candle with sustained momentum.
 
-3. Award points only when supported by visible chart evidence. Never invent confirmation to increase a score.
+9. RISK-TO-REWARD AND STOP-LOSS:
+Evaluate whether a defensible entry, logical stop-loss and sufficient target distance can be established.
+If these cannot be established, award zero or partial points as justified. Never invent trade levels.
 
-4. A setup must score at least 6/10 to be considered an EARLY OPPORTUNITY, but it must score at least 7/10 and satisfy every trade-level and risk-management requirement before it can qualify as a BUY or SELL signal.
+10. For every criterion, explain the exact chart evidence supporting the score and why the remaining points were withheld.
 
-5. If both BUY and SELL qualify, select the direction with the stronger evidence and better risk-to-reward opportunity.
+11. Compare BUY and SELL evidence directly. Clearly identify which direction is stronger, or explain why neither direction has an advantage.
 
-6. If scores are equal, choose WAIT unless one setup has clearly stronger confirmation.
+12. A developing opportunity may receive partial evidence-based credit before full confirmation, but it must never be presented as a confirmed trade.
 
-7. A score of 9–10 may receive HIGH confidence only when multiple independent confirmations are present.
+13. Add the five scores to calculate each directional total. The totals must match the individual scores exactly.
 
-8. A score of 7–8 may receive MEDIUM confidence. Scores below 7 must result in WAIT, but scores of 6/10 should be clearly identified as developing early opportunities, with the exact missing confirmation explained. Never present an early opportunity as a confirmed trade.
+14. Never balance BUY and SELL scores artificially. Their scores may be very different.
 
-9. A high score cannot override missing entry confirmation, invalid market structure, poor stop-loss placement or insufficient risk-to-reward.
+15. Never manipulate scores to force a BUY or SELL signal. Preserve every existing trade confirmation, risk-to-reward and safety requirement.
 
-10. Always include the BUY score and SELL score in the reasoning. Identify the stronger direction, explain whether it is a confirmed setup or an early opportunity, and state exactly what confirmation is still needed. If both setups are rejected, explain why.
-
-11. Never manipulate scores to force a BUY or SELL signal.
 TRADE LEVEL RULES:
 For BUY:
 - Entry must be at or near a defensible entry zone.
