@@ -105,6 +105,64 @@
   const mount = () => {
   if (document.getElementById(panel.id)) return;
   document.body.appendChild(panel);
+
+  const splash = document.createElement("div");
+  splash.id = "cp-splash";
+
+  splash.innerHTML = `
+    <style>
+      #cp-splash {
+        position:fixed;
+        inset:0;
+        z-index:999999;
+        background:radial-gradient(circle at center,#102b50,#020817 75%);
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        color:white;
+        font-family:Arial,sans-serif;
+        text-align:center;
+        opacity:1;
+        transition:opacity .7s ease;
+      }
+      #cp-splash img {
+        width:220px;
+        max-width:75%;
+        border-radius:24px;
+        box-shadow:0 0 35px #168bff;
+        animation:cp-glow 2s infinite alternate;
+      }
+      #cp-splash h1 {
+        margin:25px 0 8px;
+        letter-spacing:4px;
+        color:#38bdf8;
+      }
+      #cp-splash p {
+        color:#bfdbfe;
+        font-size:13px;
+        letter-spacing:1px;
+      }
+      #cp-splash.cp-splash-hide {
+        opacity:0;
+        pointer-events:none;
+      }
+      @keyframes cp-glow {
+        from {filter:brightness(.85);}
+        to {filter:brightness(1.25);}
+      }
+    </style>
+    <img src="/web/IMG_3077.png" alt="ChartPulse AI Robot">
+    <h1>CHARTPULSE AI</h1>
+    <p>INITIALIZING AI MARKET INTELLIGENCE...</p>
+  `;
+
+  document.body.appendChild(splash);
+
+  setTimeout(() => {
+    splash.classList.add("cp-splash-hide");
+    setTimeout(() => splash.remove(), 750);
+  }, 2200);
 };
 
   if (document.readyState === "loading") {
