@@ -329,6 +329,7 @@ if (!response) {
    const targets = signal.takeProfits;
     let earlyOpportunity = null;
 
+
 const early = parsed.earlyOpportunity;
 const reasoning = String(signal.reasoning || "");
 
@@ -337,6 +338,45 @@ const sellMatch = reasoning.match(/SELL score:\s*(\d+)\s*\/\s*10/i);
 
 const buyScore = buyMatch ? Number(buyMatch[1]) : null;
 const sellScore = sellMatch ? Number(sellMatch[1]) : null;
+
+// Validate all five scoring criteria and their totals.
+function validateBreakdown(direction, total) {
+  const match = reasoning.match(
+    new RegExp(
+      direction +
+      "\\s+breakdown:\\s*Trend\\s*(\\d+)\\s*/\\s*2\\s*,\\s*" +
+      "Structure\\s*(\\d+)\\s*/\\s*2\\s*,\\s*" +
+      "Support/Resistance\\s*(\\d+)\\s*/\\s*2\\s*,\\s*" +
+      "Momentum\\s*(\\d+)\\s*/\\s*2\\s*,\\s*" +
+      "Risk-to-reward\\s*(\\d+)\\s*/\\s*2",
+      "i"
+    )
+  );
+
+  if (!match || total === null || total < 0 || total > 10) {
+    return false;
+  }
+
+  const scores = match.slice(1).map(Number);
+
+  return (
+    scores.every(score =>
+      Number.isInteger(score) && score >= 0 && score <= 2
+    ) &&
+    scores.reduce((sum, score) => sum + score, 0) === total
+  );
+}
+
+const validScoring =
+  validateBreakdown("BUY", buyScore) &&
+  validateBreakdown("SELL", sellScore);
+
+if (!validScoring) {
+  return reply({
+    error: "Invalid scoring breakdown. Please run the chart analysis again."
+  }, 502);
+}
+
 
 if (
   signal.decision === "WAIT" &&
