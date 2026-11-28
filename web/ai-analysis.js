@@ -152,7 +152,7 @@
         to {filter:brightness(1.25);}
       }
     </style>
-    <img src="/web/IMG_3077.png" alt="ChartPulse AI Robot">
+    <img src="/IMG_3077.png" alt="ChartPulse AI Robot">
     <h1>CHARTPULSE AI</h1>
     <p>INITIALIZING AI MARKET INTELLIGENCE...</p>
   `;
