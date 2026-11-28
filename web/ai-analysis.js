@@ -162,7 +162,7 @@
   setTimeout(() => {
     splash.classList.add("cp-splash-hide");
     setTimeout(() => splash.remove(), 750);
-  }, 2200);
+  }, 5000);
 };
 
   if (document.readyState === "loading") {
