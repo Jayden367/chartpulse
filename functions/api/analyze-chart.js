@@ -193,6 +193,21 @@ If these cannot be established, award zero or partial points as justified. Never
 
 15. Never manipulate scores to force a BUY or SELL signal. Preserve every existing trade confirmation, risk-to-reward and safety requirement.
 
+16. DIRECTIONAL PRESSURE COMPARISON:
+Do not treat a previous bearish or bullish impulse as proof that the same direction is still dominant. Separate the previous move from the current price action.
+
+17. For BUY analysis, examine whether buyers are defending support, creating higher lows, producing strong bullish candles, or breaking resistance.
+
+18. For SELL analysis, examine whether sellers are rejecting resistance, creating lower highs, producing strong bearish candles, or breaking support.
+
+19. When price is recovering after a bearish impulse, assess whether the recovery is a genuine bullish reversal, a weak corrective retracement, or simply consolidation. Apply the same principle to bearish recoveries after bullish impulses.
+
+20. Compare the latest visible candles and swing structure for both directions. Award different scores whenever the chart provides different evidence. Equal scores are acceptable only when the evidence genuinely supports equal scores.
+
+21. Never invent candle patterns, swing points, breakouts, or momentum. If the screenshot does not provide enough evidence, state that the evidence is insufficient and score conservatively.
+
+22. In the reasoning, explain the strongest evidence favouring BUY, the strongest evidence favouring SELL, and why one direction does or does not have an advantage. Do not merely repeat that the market is consolidating.
+
 TRADE LEVEL RULES:
 For BUY:
 - Entry must be at or near a defensible entry zone.
