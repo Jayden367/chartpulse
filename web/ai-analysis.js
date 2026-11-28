@@ -33,8 +33,16 @@
       #cp-preview {max-width:100%;border-radius:10px;margin-top:12px}
     </style>
 
-    <h2>ChartPulse AI Dashboard</h2>
-    <p>Upload a trading chart for AI analysis.</p>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:14px;background:#0b1425;border:1px solid #2563eb;border-radius:15px;">
+  <img src="/IMG_3077.png" alt="ChartPulse AI Robot"
+    style="width:75px;height:75px;object-fit:cover;border-radius:12px;box-shadow:0 0 18px #168bff;">
+  <div>
+    <h2 style="margin:0;color:#38bdf8;letter-spacing:2px;">CHARTPULSE AI</h2>
+    <p style="margin:7px 0 0;color:#bfdbfe;font-size:13px;">Your AI Trading Intelligence</p>
+  </div>
+</div>
+
+<p>Upload a trading chart for AI analysis.</p>
 
     <label>Market</label>
     <select id="cp-symbol">
